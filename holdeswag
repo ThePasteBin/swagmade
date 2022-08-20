@@ -1,0 +1,311 @@
+-- Rebirth Champions X
+local Player = game.Players.LocalPlayer
+if game.PlaceId == 8540346411 then
+	
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+	local Window = OrionLib:MakeWindow({Name = "Swagmade - Rebirth Champions X", HidePremium = true, SaveConfig = true, ConfigFolder = "HerosTestConfig", IntroEnabled = false})
+
+
+		getgenv().autoClick = true
+		getgenv().autoRebirth = true
+		getgenv().autoPetOpen = true
+		getgenv().autoHatch = true
+		getgenv().selectEgg = ""
+		getgenv().selectAmount = ""
+		getgenv().selectRebirth = ""
+
+		function autoClick()
+			while getgenv().autoClick == true do
+				game:GetService("ReplicatedStorage").Events.Click3:FireServer()
+				wait(.0001)
+			end
+		end
+
+		function autoRebirth()
+			while getgenv().autoRebirth == true do
+				game:GetService("ReplicatedStorage").Events.Rebirth:FireServer(getgenv().selectRebirth)
+				wait(.0001)
+			end
+		end
+
+		function autoHatch()
+			while getgenv().autoHatch == true do
+				game:GetService("ReplicatedStorage").Functions.Unbox:InvokeServer(getgenv().selectEgg,getgenv().selectAmount)
+				wait(.0001)
+			end
+		end
+
+		function ToTutel()
+			Player.Character.HumanoidRootPart.CFrame = CFrame.new(-1130.32166, 5.49317884, -1072.06348)
+				game:GetService("ReplicatedStorage").Events.WorldBoost:FireServer("Tutel Oasis")
+				game:GetService("ReplicatedStorage").Events.StoreWorldBoost:FireServer("Tutel Oasis")
+			end
+
+		function ToForest()
+			Player.Character.HumanoidRootPart.CFrame = CFrame.new(-382.185028, 30.2495823, 174.01207)
+			game:GetService("ReplicatedStorage").Events.WorldBoost:FireServer("Forest")
+			game:GetService("ReplicatedStorage").Events.StoreWorldBoost:FireServer("Forest")
+		end
+
+	OrionLib:MakeNotification({
+		Name = "Welcome",
+		Content = "You executed swagmade, loaded "..game.Name.." Enjoy Swagmade!",
+		Image = "rbxassetid://4483345998",
+		Time = 3
+	})
+
+		local Tab = Window:MakeTab({
+			Name = "Main",
+			Icon = "rbxassetid://4483345998",
+			PremiumOnly = false
+		})
+
+		local Pets = Window:MakeTab({
+			Name = "Pets",
+			Icon = "rbxassetid://4483345998",
+			PremiumOnly = false
+		})
+
+		local Tp = Window:MakeTab({
+			Name = "Teleports",
+			Icon = "rbxassetid://4483345998",
+			PremiumOnly = false
+		})
+
+		Tab:AddToggle({
+			Name = "Free Auto Clicker",
+			Default = false,
+			Callback = function(state)
+				getgenv().autoClick = state
+				autoClick()
+			end
+		})
+
+		Tab:AddToggle({
+			Name = "Auto Rebirth",
+			Default = false,
+			Callback = function(state)
+				getgenv().autoRebirth = state
+				autoRebirth()
+			end
+		})
+
+		Tab:AddDropdown({
+			Name = "Select Rebirth Level",
+			Default = 1,
+			Options = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40},
+			Callback = function(Value)
+				getgenv().selectRebirth = Value
+			end
+		})
+
+		Pets:AddToggle({
+			Name = "Auto Pet Open",
+			Default = false,
+			Callback = function(state)
+				getgenv().autoHatch = state
+				autoHatch()
+			end
+		})
+
+
+		Pets:AddDropdown({
+			Name = "Select Egg",
+			Default = "Tutel",
+			Options = {"Tutel", "???"},
+			Callback = function(Value)
+				getgenv().selectEgg = Value
+				print(selectEgg)
+			end
+		})
+
+		Pets:AddDropdown({
+			Name = "Select Amount",
+			Default = "Single",
+			Options = {"Single", "Triple"},
+			Callback = function(Value)
+				getgenv().selectAmount = Value
+				print(selectAmount)
+			end
+		})
+
+		Tp:AddButton({
+			Name = "Goto Tutel Island",
+			Callback = function()
+				ToTutel()
+				print("Teleported to Island.")
+			end
+		})
+
+		Tp:AddButton({
+			Name = "Goto Forest",
+			Callback = function()
+				ToForest()
+				print("Teleported to Island.")
+			end
+		})
+	
+	-- Slashing Simulator
+	
+elseif game.PlaceId == 7728848215 then
+	
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+	local Window = OrionLib:MakeWindow({Name = "Swagmade - Slashing Simulator", HidePremium = false, SaveConfig = true, ConfigFolder = "SlashingConfig", IntroEnabled = false})
+	local Player = game.Players.LocalPlayer
+
+
+	-- Variables
+	getgenv().autoSlash = true
+	getgenv().autoRB = true
+	getgenv().rebirthValue = ""
+	getgenv().petHatch = true
+	getgenv().petType = ""
+	getgenv().petAmount = ""
+	getgenv().petHatchCurrency = ""
+
+	-- Functions
+	function autoSlash()
+		while getgenv().autoSlash == true do
+			game:GetService("ReplicatedStorage").Remotes.Game.AirSlice:FireServer()
+			wait(0.0001)
+		end
+	end
+
+	function autoRB()
+		while getgenv().autoRB == true do
+			game:GetService("ReplicatedStorage").Remotes.Other.Rebirth:FireServer(rebirthValue)
+			wait(1)
+		end
+	end
+
+	function petHatch()
+		while getgenv().petHatch == true do
+			game:GetService("ReplicatedStorage").Remotes.Pets.Eggs.HatchEgg:FireServer(getgenv().petType,getgenv().petHatchCurrency,getgenv().petAmount)
+			wait(0.0001)
+		end
+	end
+	
+	OrionLib:MakeNotification({
+		Name = "Welcome",
+		Content = "You executed swagmade, loaded "..game.Name.." Enjoy Swagmade!",
+		Image = "rbxassetid://4483345998",
+		Time = 3
+	})
+	
+	-- Tabs
+	local Farm = Window:MakeTab({
+		Name = "Farming",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+
+	local PetFarm = Window:MakeTab({
+		Name = "Pet Farming",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	
+	local MiscTab = Window:MakeTab({
+		Name = "Misc",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	
+	-- Toggles
+	Farm:AddToggle({
+		Name = "Auto Slash",
+		Default = false,
+		Callback = function(Value)
+			getgenv().autoSlash = Value
+			autoSlash()
+		end    
+	})
+
+	Farm:AddToggle({
+		Name = "Auto Rebirth",
+		Default = false,
+		Callback = function(Value)
+			getgenv().autoRB = Value
+			autoRB()
+		end    
+	})
+
+	PetFarm:AddToggle({
+		Name = "Auto Hatch (Have to be next to the egg)",
+		Default = false,
+		Callback = function(Value)
+			getgenv().petHatch = Value
+			petHatch()
+		end    
+	})
+
+	-- Dropdowns
+
+	Farm:AddDropdown({
+		Name = "Rebirth Value",
+		Default = 1,
+		Options = {1, 3, 10, 25, 50},
+		Callback = function(Value)
+			getgenv().rebirthValue = Value
+		end    
+	})
+
+	PetFarm:AddDropdown({
+		Name = "Pet Type (REQUIRED)",
+		Default = "basicEgg",
+		Options = {"basicEgg", "FrozenEgg"},
+		Callback = function(Value)
+			getgenv().petType = Value
+		end    
+	})
+
+
+	PetFarm:AddDropdown({
+		Name = "Pet Currency (REQUIRED)",
+		Default = "Coins",
+		Options = {"Coins", "Diamonds"},
+		Callback = function(Value)
+			getgenv().petHatchCurrency = Value
+		end    
+	})
+
+
+	PetFarm:AddDropdown({
+		Name = "Pet Amount (REQUIRED)",
+		Default = 1,
+		Options = {1, 3},
+		Callback = function(Value)
+			getgenv().petAmount = Value
+		end    
+	})
+	
+	-- Slider
+	
+	MiscTab:AddSlider({
+		Name = "Walkspeed",
+		Min = 0,
+		Max = 120,
+		Default = 16,
+		Color = Color3.fromRGB(255,255,255),
+		Increment = 1,
+		ValueName = "Speed",
+		Callback = function(Value)
+			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
+		end
+	})
+
+	MiscTab:AddSlider({
+		Name = "Jumppower",
+		Min = 0,
+		Max = 200,
+		Default = 50,
+		Color = Color3.fromRGB(255,255,255),
+		Increment = 1,
+		ValueName = "Jump",
+		Callback = function(Value)
+			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
+		end
+	})
+	
+end
+OrionLib:Init()
